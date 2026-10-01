@@ -59,10 +59,29 @@ public class ParallaxScrollingExampleGame : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
+        //Calculate the offset vector
+        float playerX = MathHelper.Clamp(_player.Position.X, 300, 13600);
+        float offset = 300 - playerX;
+        Matrix transform;
+
+        transform = Matrix.CreateTranslation(offset * 0.3333f,0,0);
+        _spriteBatch.Begin(transformMatrix: transform);
         _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
+        _spriteBatch.End();
+        transform = Matrix.CreateTranslation(offset * 0.6666f,0,0);
+        _spriteBatch.Begin(transformMatrix: transform);
         _spriteBatch.Draw(_midground, Vector2.Zero, Color.White);
+        _spriteBatch.End();
+        transform = Matrix.CreateTranslation(offset * 1f,0,0);
+        _spriteBatch.Begin(transformMatrix: transform);
         _spriteBatch.Draw(_foreground, Vector2.Zero, Color.White);
+        _spriteBatch.End();
+
+        _spriteBatch.Begin(transformMatrix: transform);
+        
+        
+        
+        
         _player.Draw(gameTime, _spriteBatch);
         _spriteBatch.End();
 
